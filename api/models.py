@@ -9,11 +9,11 @@ load_dotenv()
 
 Base = declarative_base()
 
-# if os.getenv("DEPLOYMENT_ENVIRONMENT") == 'DEV':
-#     engine = create_engine(os.getenv("DB_URL"), connect_args={'check_same_thread': False})
-# else:
-#     engine = create_engine(os.getenv("DB_URL"))
-engine=create_engine("postgresql://postgres:test1234@fastapi-aws-database.cz6mkwsmq2e5.eu-north-1.rds.amazonaws.com:5432/postgres")
+if os.getenv("DEPLOYMENT_ENVIRONMENT") == 'DEV':
+    engine = create_engine(os.getenv("DB_URL"), connect_args={'check_same_thread': False})
+else:
+    engine = create_engine(os.getenv("DB_URL"))
+# engine=create_engine("postgresql://postgres:test1234@fastapi-aws-database.cz6mkwsmq2e5.eu-north-1.rds.amazonaws.com:5432/postgres")
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
